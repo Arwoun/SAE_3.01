@@ -1,0 +1,28 @@
+CREATE TABLE enregistrements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    animal_id INT NOT NULL,
+    date_enregistrement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES utilisateur(id),
+    FOREIGN KEY (animal_id) REFERENCES animaux(id)
+);
+
+CREATE TABLE utilisateur (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    nom TEXT,
+    prenom TEXT,
+    email TEXT,
+    mdp TEXT,
+    date_enregistrement TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    user_id INT UNIQUE,
+    email VARCHAR(100) UNIQUE,
+    mot_de_passe VARCHAR(100),
+    code INT
+);
