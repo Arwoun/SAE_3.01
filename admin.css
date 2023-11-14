@@ -1,19 +1,19 @@
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .formulaire-add,
 .formulaire-view,
 .formulaire-delete {
-  margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .formulaire-add {
-  margin-top: 170px;
+    margin-top: 170px;
 }
 
 .formulaire-view,
 .formulaire-delete {
-  padding-top: 100px;
+    padding-top: 100px;
 }

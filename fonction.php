@@ -77,4 +77,8 @@ function getAnimalData($animalId) {
     $apiUrl = "https://taxref.mnhn.fr/api/taxa/$animalId";
     return json_decode(file_get_contents($apiUrl), true);
 }
+
+// Fonction pour enregistrer l'historique
+
+
 ?>
