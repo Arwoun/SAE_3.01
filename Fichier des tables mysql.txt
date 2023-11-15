@@ -26,3 +26,10 @@ CREATE TABLE admin (
     mot_de_passe VARCHAR(100),
     code INT
 );
+
+CREATE TABLE historique_utilisateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action VARCHAR(255) NOT NULL,
+    utilisateur_id INT,
+    date_action TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
