@@ -188,6 +188,9 @@ if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
                     if (isAnimalInFavorites($userId, $data['id'])) {
                         echo '<button type="submit" name="remove_favorite">';
                         echo '<img src="Logo/signet_jaune.png" alt="Signet Jaune">';
+                        //ajouter dans une vue history change
+
+
                     } else {
                         echo '<button type="submit" name="add_favorite">';
                         echo '<img src="Logo/signet_vide.png" alt="Signet Vide">';
