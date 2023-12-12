@@ -1,4 +1,6 @@
 <?php
+global $bdd;
+
 $servername = "localhost";
 $username = "root";
 $password = "";

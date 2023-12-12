@@ -3,6 +3,30 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 include_once("fonction.php");
+
+function getAnimalImages($animalId) {
+    $mediaLink = '';
+    $mediaUrl = "https://taxref.mnhn.fr/api/media/download/thumbnail/$animalId";
+    try {
+        $mediaData = file_get_contents($mediaUrl);
+        if ($mediaData) {
+            $mediaData = json_decode($mediaData, true);
+            foreach ($mediaData['_embedded']['media'] as $media) {
+                $mediaLink = $media['_links']['thumbnailFile']['href'];
+                echo '<div class="carousel-item">';
+                echo '<img class="carousel-image" src="' . $mediaLink . '" alt="Image">';
+                echo '<p>Copyright: ' . $media['copyright'] . '</p>';
+                echo '<p>Licence: ' . $media['licence'] . '</p>';
+                echo '</div>';
+            }
+        } else {
+            echo 'Pas d\'image disponible.';
+        }
+    } catch (Exception $e) {
+        echo 'Erreur lors de la récupération des images.';
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +34,7 @@ include_once("fonction.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espèces</title>
-<style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
@@ -84,7 +108,7 @@ include_once("fonction.php");
         }
 
         .results {
-            margin: 20px;
+            margin: 100px;
         }
 
         .result-row {
@@ -115,45 +139,103 @@ include_once("fonction.php");
             width: 24px;
             height: 24px;
         }
-</style>
+        #editFormPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        #popupContent {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        function showEditForm(animalId, scientificName, referenceNameHtml, mediaLink) {
+            var editFormContent = '<h2>Détails de l\'animal</h2>' +
+                '<p><strong>Nom scientifique :</strong> ' + scientificName + '</p>' +
+                '<p><strong>Autorité :</strong> ' + referenceNameHtml + '</p>' +
+                '<p><strong>ID animal :</strong> ' + animalId + '</p>';
+
+            if (mediaLink) {
+                editFormContent += '<p><strong>Images :</strong></p><div id="carousel" class="carousel">';
+                editFormContent += '<?php getAnimalImages("' + animalId + '"); ?>';
+                editFormContent += '</div>';
+            } else {
+                editFormContent += '<p>Pas d\'image disponible.</p>';
+            }
+
+            document.getElementById('popupContent').innerHTML = editFormContent;
+            document.getElementById('editFormPopup').style.display = 'flex';
+        }
+
+        function closeEditForm() {
+            document.getElementById('editFormPopup').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
-    <header>
-        <img src="Logo/ANPF.png" alt="ANPF">
-        <div class="header-buttons">
-            <a href="page_accueil.php">Accueil</a>
-            <a href="espece.php">Espèces</a>
-            <?php
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            if (isset($_SESSION['nom_utilisateur'])) {
-                echo '<a href="infos_persos.php">Mes Infos Persos</a>';
-                echo include 'bouton_deconnexion.php';
-            } else {
-                echo include 'bouton_connexion.php';
-                echo '<a href="inscription.php">Inscription</a>';
-            }
+<header>
+    <img src="Logo/ANPF.png" alt="ANPF">
+    <div class="header-buttons">
+        <a href="page_accueil.php">Accueil</a>
+        <a href="espece.php">Espèces</a>
+        <?php
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['nom_utilisateur'])) {
+            echo '<a href="infos_persos.php">Mes Infos Persos</a>';
+            echo include 'bouton_deconnexion.php';
+        } else {
+            echo include 'bouton_connexion.php';
+            echo '<a href="inscription.php">Inscription</a>';
+        }
+        ?>
+    </div>
+</header>
 
-            ?>
-        </div>
-    </header>
+<h1>Résultats de la recherche de Taxons</h1><br><br><br>
+<?php
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    echo $user_id;
+} else {
+    echo 'Utilisateur non connecté.';
+}
+?>
 
-    <h1>Résultats de la recherche de Taxons</h1><br><br><br>
-  <?php
-    if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
-        echo $user_id;
-    } else {
-        echo 'Utilisateur non connecté.';
-    }
-    ?>
-
-    <form method="GET">
-        <label for="animalId" style="padding-left: 10px;">Trouver une espèce :</label>
-        <input type="text" id="animalName" name="animalName" placeholder="Entrez le nom de l'animal">
-        <input type="submit" name="searchByName" value="Rechercher par Nom"><br><br><br>
-    </form>
+<form method="GET">
+    <label for="animalId" style="padding-left: 10px;">Trouver une espèce :</label>
+    <input type="text" id="animalName" name="animalName" placeholder="Entrez le nom de l'animal">
+    <input type="submit" name="searchByName" value="Rechercher par Nom"><br><br><br>
+</form>
 
 <?php
 if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
@@ -169,7 +251,7 @@ if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
             $taxa = $databis['_embedded']['taxa'];
 
             echo '<h2>Résultats de la recherche :</h2>';
-            echo '<div class="results">'; 
+            echo '<div class="results">';
 
             $count = 0;
 
@@ -188,9 +270,6 @@ if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
                     if (isAnimalInFavorites($userId, $data['id'])) {
                         echo '<button type="submit" name="remove_favorite">';
                         echo '<img src="Logo/signet_jaune.png" alt="Signet Jaune">';
-                        //ajouter dans une vue history change
-
-
                     } else {
                         echo '<button type="submit" name="add_favorite">';
                         echo '<img src="Logo/signet_vide.png" alt="Signet Vide">';
@@ -208,22 +287,23 @@ if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
                 echo '<strong>ID animal :</strong> ' . $data['id'] . '<br>';
                 $animalId = $data['id'];
 
+                $mediaLink = '';
 
                 if (isset($data['_links']['media']['href'])) {
                     $animalId = $data['id'];
                     $mediaLink2 = "https://taxref.mnhn.fr/api/media/download/inpn/$animalId";
-
                     echo '<img src="' . $mediaLink2 . '" style="height:200px;width:300px">';
-                }
-                elseif (isset($data['_links']['media']['href'])){
+                } elseif (isset($data['_links']['media']['href'])) {
                     try {
-                        $mediaLink ="https://taxref.mnhn.fr/api/media/download/thumbnail/$animalId";
+                        $mediaLink = "https://taxref.mnhn.fr/api/media/download/thumbnail/$animalId";
                         echo '<img src="' . $mediaLink . '" style="height:200px;width:300px">';
-                    }
-                    catch (Exception $e) {
+                    } catch (Exception $e) {
                         echo 'Pas d\'image disponible.';
                     }
                 }
+
+                echo '<p><a href="#" onclick="showEditForm(\'' . $data['id'] . '\', \'' . $data['scientificName'] . '\', \'' . $data['referenceNameHtml'] . '\', \'' . $mediaLink . '\')">Afficher plus de détails</a></p>';
+
                 echo '</div>';
                 $count++;
                 if ($count % 3 == 0 || $count == count($taxa)) {
@@ -240,5 +320,9 @@ if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
     }
 }
 ?>
+<div id="editFormPopup" style="display: none;">
+    <div id="popupContent"></div>
+    <span onclick="closeEditForm()" style="cursor: pointer; position: absolute; top: 10px; right: 10px; font-size: 20px; color: #fff;">&times;</span>
+</div>
 </body>
 </html>
