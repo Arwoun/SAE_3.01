@@ -4,133 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
-<style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #FFFF;
-            text-align: left;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header img {
-            max-width: 200px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        .header-buttons {
-            text-align: right;
-        }
-
-        .header-buttons a {
-            display: inline-block;
-            margin-left: 10px;
-            padding: 10px 20px;
-            background-color: #88c34a;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .header-buttons a:hover {
-            background-color: #66a230;
-        }
-
-        .tab-buttons {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .tab-buttons a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #88c34a;
-            color: #000;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        .tab-buttons a:hover {
-            background-color: #66a230;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .active-section {
-            display: block;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        input[type="submit"] {
-            background-color: #88c34a;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        #loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #loading img {
-            max-width: 100px;
-        }
-</style>
+    <link type="text/css" rel="stylesheet" href="accueil.css">
 </head>
 <body>
-<header>
-    <img src="Logo/ANPF.png" alt="ANPF">
-    <div class="header-buttons">
-    <a href="page_accueil.php">Accueil</a>
-    <a href="espece.php">Espèces</a>
-    <a href="ma_collection">Ma Collection</a>
-    <a href="inscription.php">Inscription</a>
-    <?php
-    if (isset($_SESSION['nom_utilisateur'])) {
-        echo '<a href="infos_persos.php">Mes Infos Persos</a>';
-        echo '<a href="deco.php">Déconnexion</a>'; 
-    } else {
-        echo '<a href="connexion.php">Connexion</a>';
-    }
-    ?>
-</div>
-</header>
+    <div class="navbar" id="navbar">
+        <ul>
+            <li><a href="page_accueil.php">ACCUEIL</a></li>
+            <li><a href="espece.php">ESPECES</a></li>
+            <li><a href="ma_collection">MA COLLECTION</a></li>
+            <li><a href="inscription.php">INSCRIPTION</a></li>
+            <?php
+            if (isset($_SESSION['nom_utilisateur'])) {
+                echo '<li><a href="infos_persos.php">MES INFOS PERSOS</a></li>';
+                echo '<li><a href="deco.php">DECONNEXION</a></li>';
+            } else {
+                echo '<li><a href="connexion.php">CONNEXION</a></li>';
+            }
+            ?>
+        </ul>
+    </div>
 
 <div class="container">
     <h1>Résultats de la recherche de Taxons</h1>
@@ -146,11 +38,8 @@
             <input type="text" id="animalNameappro" name="animalNameappro" placeholder=" Auteur ou Nom de l'animal">
             <input type="submit" name="searchByappro" value="Rechercher approximative par nom ou auteur">
     </form>
-
-    <ul>
         <?php
-
-        # Nous faison la recherche par le Nom
+        # Nous faisons la recherche par le Nom
         if (isset($_GET['searchByName']) && isset($_GET['animalName'])) {
             $animalName = $_GET['animalName'];
             $animalNamereplace = str_replace(' ', '%20', $animalName);
@@ -227,6 +116,8 @@
                     echo '<h2>Informations sur l\'animal</h2>';
                     echo '<strong>Nom scientifique :</strong> ' . $data['scientificName'] . '<br>';
                     echo '<strong>Autorité :</strong> ' . $data['referenceNameHtml'] . '<br>';
+                    echo '<strong>ID animal :</strong> ' . $data['id'] . '<br>';
+                    echo '<strong>Reference ID :</strong> ' . $data['referenceId'] . '<br>';
                         if ($data['frenchVernacularName'] = 'null'){
                             echo '<p>Pas de nom français disponible pour cet animal.</p>';
                         }
@@ -250,8 +141,7 @@
             }
         }
         ?>
-    </ul>
 </div>
-
+<script src="admin.js"></script>
 </body>
 </html>

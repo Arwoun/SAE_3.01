@@ -37,10 +37,7 @@ if (isset($_SESSION['nom_utilisateur'])) {
 
             if ($rep) {
                 $_SESSION['nom_utilisateur'] = $rep['prenom'];
-                echo "Vous êtes connecté";
                 $_SESSION['user_id'] = $rep['user_id'];
-                echo '<div id="loading" style="display: block;"><img src="Logo/loading.gif" alt="Chargement en cours"></div>';
-                echo $_SESSION['user_id'];
             } else {
                 $error_msg = "Email ou mot de passe incorrect !";
             }
@@ -169,8 +166,8 @@ if (isset($_SESSION['nom_utilisateur'])) {
         <img src="Logo/ANPF.png" alt="ANPF">
         <div class="header-buttons">
             <a href="page_accueil.php">Accueil</a>
-            <a href="#">Espèces</a>
-            <a href="#">Ma Collection</a>
+            <a href="espece.php">Espèces</a>
+            <a href="ma_collection.php">Ma Collection</a>
             <?php
             if (isset($_SESSION['nom_utilisateur'])) {
                 echo '<a href="infos_persos.php">Mes Infos Persos</a>';

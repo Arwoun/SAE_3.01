@@ -18,11 +18,8 @@ function closeModal() {
 }
 
 function showEditForm(userId, nom, prenom, email, mdp) {
-    // Remplacez cette partie du code pour définir la valeur des champs du formulaire
     document.getElementById('edit_user_id').value = userId;
     document.getElementById('edit_nom').value = nom;
-    // ... définissez les autres champs ...
-
     showModal();
 }
 

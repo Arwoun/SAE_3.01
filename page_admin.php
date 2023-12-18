@@ -61,39 +61,88 @@ require_once 'conf.php';
         echo '</div>';
     }
     ?>
-
-
 </div>
-
 
 <!-- Formulaire de suppression -->
 <div class="formulaire-delete">
     <h3>Pour supprimer un utilisateur</h3>
     <form action="" method="POST">
-        <label for="delete_user_id">Id :</label>
-        <input type="number" id="delete_user_id" name="delete_user_id" required>
-        <input type="submit" name="supprimer" value="Supprimer">
+        <div class="form-control">
+            <input type="number" id="delete_user_id" name="delete_user_id" required>
+            <label>
+                <span style="transition-delay:0ms">I</span><span style="transition-delay:50ms">d</span>
+            </label>
+        </div>
+        <input hidden="hidden" type="submit" name="supprimer" value="Supprimer">
     </form>
+    <?php
+    try{
+        if (isset($_POST['supprimer'])) {
+            $user_id = isset($_POST['delete_user_id']) ? $_POST['delete_user_id'] : null;
+
+            // Préparer et exécuter la requête de suppression d'utilisateur
+            $delete_user = "DELETE FROM utilisateur WHERE user_id=?";
+            $stmt = $bdd->prepare($delete_user);
+            $stmt->execute([$user_id]);
+
+            // Enregistrer l'action dans l'historique
+            $action = "Suppression utilisateur";
+            enregistrerHistorique($bdd, $action, $user_id);
+
+            echo "Utilisateur supprimé avec succès!";
+        }
+        else {
+            echo "Erreur lors de la suppression de l'utilisateur";
+        }
+    }
+    catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
+    // Fonction pour enregistrer l'historique
+
+    ?>
 </div>
+
+
 
 <!-- Formulaire d'ajout -->
 <div class="formulaire-add">
     <h3>Pour ajouter un utilisateur</h3>
-    <form action="" method="POST">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required>
+    <form action="" method="POST" style="display: flex; flex-direction: row; flex-wrap: wrap;">
 
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required>
+        <div class="form-control" style="margin-right: 10px;">
+            <input type="text" id="nom" name="nom" required>
+            <label>
+                <span style="transition-delay:0ms">N</span><span style="transition-delay:50ms">o</span><span style="transition-delay:100ms">m</span>
+            </label>
+        </div>
 
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required>
+        <div class="form-control" style="margin-right: 10px;">
+            <input type="text" id="prenom" name="prenom" required>
+            <label>
+                <span style="transition-delay:0ms">P</span><span style="transition-delay:50ms">r</span><span style="transition-delay:100ms">é</span><span style="transition-delay:150ms">n</span><span style="transition-delay:200ms">o</span><span style="transition-delay:250ms">m</span>
+            </label>
+        </div>
 
-        <label for="mdp">Mot de passe :</label>
-        <input type="password" id="mdp" name="mdp" required>
+        <div class="form-control" style="margin-right: 10px;">
+            <input type="email" id="email" name="email" required>
+            <label>
+                <span style="transition-delay:0ms">E</span><span style="transition-delay:50ms">m</span><span style="transition-delay:100ms">a</span><span style="transition-delay:150ms">i</span><span style="transition-delay:200ms">l</span>
+            </label>
+        </div>
 
-        <input type="submit" name="ajouter" value="Ajouter">
+        <div class="form-control">
+            <input type="password" id="mdp" name="mdp" required>
+            <label>
+                <span style="transition-delay:0ms">M</span><span style="transition-delay:50ms">o</span><span style="transition-delay:100ms">t</span><span style="transition-delay:150ms">d</span><span style="transition-delay:200ms">e</span><span style="transition-delay:250ms">p</span><span style="transition-delay:300ms">a</span><span style="transition-delay:350ms">s</span><span style="transition-delay:400ms">s</span><span style="transition-delay:450ms">e</span>
+            </label>
+        </div>
+
+        <input class="button-add" type="submit" name="ajouter" value="Ajouter">
     </form>
+</div>
+
 
     <?php
     //Ajout d'un utilisateur
@@ -121,56 +170,32 @@ require_once 'conf.php';
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $user_id = $result['user_id'];
 
-        echo "Utilisateur ajouté avec succès!";
-
         if ($stmt) {
             echo '<div class="formulaire-view-result">';
-            echo '<h4>Résultat de la recherche :</h4>';
+            echo '<h4>Votre ajout utilisateur :</h4>';
             echo '<p><strong>Id:</strong> ' . $user_id . '</p>';
             echo '<p><strong>Nom:</strong> ' . $nom . '</p>';
             echo '<p><strong>Prénom:</strong> ' . $prenom . '</p>';
             echo '<p><strong>Email:</strong> ' . $email . '</p>';
             echo '<p><strong>Mot de passe:</strong> ' . $mdp . '</p>';
             echo '</div>';
-        } else {
+        }
+        else {
             echo '<p>Erreur lors de votre ajout de utilisateur</p>';
+        }
     }
-    }
+    ?>
+</div>
+
+
+
+<?php
     function enregistrerHistorique($bdd, $action, $user_id) {
         $insert_historique = "INSERT INTO historique_utilisateur (action, user_id) VALUES (?, ?)";
         $stmt = $bdd->prepare($insert_historique);
         $stmt->execute([$action, $user_id]);
     }
     ?>
-</div>
-
-<?php
-try{
-        if (isset($_POST['supprimer'])) {
-            $user_id = isset($_POST['delete_user_id']) ? $_POST['delete_user_id'] : null;
-
-            // Préparer et exécuter la requête de suppression d'utilisateur
-            $delete_user = "DELETE FROM utilisateur WHERE user_id=?";
-            $stmt = $bdd->prepare($delete_user);
-            $stmt->execute([$user_id]);
-
-            // Enregistrer l'action dans l'historique
-            $action = "Suppression utilisateur";
-            enregistrerHistorique($bdd, $action, $user_id);
-
-            echo "Utilisateur supprimé avec succès!";
-        }
-        else {
-            echo "Erreur lors de la suppression de l'utilisateur";
-    }
-}
-catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-// Fonction pour enregistrer l'historique
-
-?>
 <script src="admin.js"></script>
 </body>
 

@@ -11,7 +11,7 @@ include_once("fonction.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Collection</title>
-<style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
@@ -95,82 +95,82 @@ include_once("fonction.php");
             width: 24px;
             height: 24px;
         }
-</style>
+    </style>
 </head>
 <body>
-    <header>
-        <img src="Logo/ANPF.png" alt="ANPF">
-        <div class="header-buttons">
-            <a href="page_accueil.php">Accueil</a>
-            <a href="espece.php">Espèces</a>
-            <?php
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }            
-            if (isset($_SESSION['nom_utilisateur'])) {
-                echo '<a href="infos_persos.php">Mes Infos Persos</a>';
-                echo '<a href="deco.php">Déconnexion</a>';
-            } else {
-                echo '<a href="connexion.php">Connexion</a>';
-                echo '<a href="inscription.php">Inscription</a>';
-            }
-            ?>
-        </div>
-    </header>
-
-    <h1>Ma Collection</h1><br><br><br>
-
-    <div class="results">
+<header>
+    <img src="Logo/ANPF.png" alt="ANPF">
+    <div class="header-buttons">
+        <a href="page_accueil.php">Accueil</a>
+        <a href="espece.php">Espèces</a>
         <?php
-        $userId = getCurrentUserId();
-
-        if ($userId) {
-            $favoriteAnimalIds = getFavoriteAnimalIds($userId);
-
-            if (!empty($favoriteAnimalIds)) {
-                $count = 0;
-
-                foreach ($favoriteAnimalIds as $animalId) {
-                    $apiUrl = "https://taxref.mnhn.fr/api/taxa/$animalId";
-                    $response = file_get_contents($apiUrl);
-
-                    if ($response) {
-                        $data = json_decode($response, true);
-
-                        if (isset($data['id'])) {
-                            if ($count % 3 == 0) {
-                                echo '<div class="result-row">';
-                            }
-
-                            echo '<div class="result">';
-                            echo '<h3>Informations sur l\'animal</h3>';
-                            echo '<strong>Nom scientifique :</strong> ' . $data['scientificName'] . '<br>';
-                            echo '<strong>Autorité :</strong> ' . $data['referenceNameHtml'] . '<br>';
-                            echo '<strong>ID animal :</strong> ' . $data['id'] . '<br>';
-
-                            if (isset($data['_links']['media']['href'])) {
-                                $mediaLink = "https://taxref.mnhn.fr/api/media/download/thumbnail/{$data['id']}";
-                                echo '<img src="' . $mediaLink . '" style="height:200px;width:300px">';
-                            } else {
-                                echo '<p>Aucune image trouvée pour cet animal.</p>';
-                            }
-                            echo '</div>';
-
-                            $count++;
-
-                            if ($count % 3 == 0 || $count == count($favoriteAnimalIds)) {
-                                echo '</div>';
-                            }
-                        }
-                    }
-                }
-            } else {
-                echo '<p>Votre collection est vide.</p>';
-            }
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['nom_utilisateur'])) {
+            echo '<a href="infos_persos.php">Mes Infos Persos</a>';
+            echo '<a href="deco.php">Déconnexion</a>';
         } else {
-            echo 'Utilisateur non connecté.';
+            echo '<a href="connexion.php">Connexion</a>';
+            echo '<a href="inscription.php">Inscription</a>';
         }
         ?>
     </div>
+</header>
+
+<h1>Ma Collection</h1><br><br><br>
+
+<div class="results">
+    <?php
+    $userId = getCurrentUserId();
+
+    if ($userId) {
+        $favoriteAnimalIds = getFavoriteAnimalIds($userId);
+
+        if (!empty($favoriteAnimalIds)) {
+            $count = 0;
+
+            foreach ($favoriteAnimalIds as $animalId) {
+                $apiUrl = "https://taxref.mnhn.fr/api/taxa/$animalId";
+                $response = file_get_contents($apiUrl);
+
+                if ($response) {
+                    $data = json_decode($response, true);
+
+                    if (isset($data['id'])) {
+                        if ($count % 3 == 0) {
+                            echo '<div class="result-row">';
+                        }
+
+                        echo '<div class="result">';
+                        echo '<h3>Informations sur l\'animal</h3>';
+                        echo '<strong>Nom scientifique :</strong> ' . $data['scientificName'] . '<br>';
+                        echo '<strong>Autorité :</strong> ' . $data['referenceNameHtml'] . '<br>';
+                        echo '<strong>ID animal :</strong> ' . $data['id'] . '<br>';
+
+                        if (isset($data['_links']['media']['href'])) {
+                            $mediaLink = "https://taxref.mnhn.fr/api/media/download/thumbnail/{$data['id']}";
+                            echo '<img src="' . $mediaLink . '" style="height:200px;width:300px">';
+                        } else {
+                            echo '<p>Aucune image trouvée pour cet animal.</p>';
+                        }
+                        echo '</div>';
+
+                        $count++;
+
+                        if ($count % 3 == 0 || $count == count($favoriteAnimalIds)) {
+                            echo '</div>';
+                        }
+                    }
+                }
+            }
+        } else {
+            echo '<p>Votre collection est vide.</p>';
+        }
+    } else {
+        echo 'Utilisateur non connecté.';
+    }
+    ?>
+</div>
 </body>
 </html>

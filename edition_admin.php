@@ -1,4 +1,5 @@
 <?php
+global $bdd;
 require_once 'conf.php';
 
 function enregistrerHistorique($bdd, $action, $user_id) {
@@ -119,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 </div>
 
-<!-- Ajout de l'élément modal manquant -->
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
