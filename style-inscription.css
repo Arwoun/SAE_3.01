@@ -1,0 +1,231 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #5e655c;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.left-image {
+    background: url('Dossier/Dossier/Logo/fond.JPG') no-repeat left top;
+    background-size: cover;
+    width: 400px;
+    border-radius: 10px 0 0 10px;
+
+}
+
+.right-form {
+    width: 500px;
+    height: 430px;
+    background: rgb(207, 209, 206);
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.right-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('Logo/fond.JPG') no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+}
+
+.right-form h2 {
+    text-align: center;
+    color: black;
+}
+
+.form-group {
+    margin: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group .form {
+    --width-of-input: 100%;
+    --border-height: 1px;
+    --border-before-color: rgba(140, 140, 140, 0.39);
+    --border-after-color: #0d440c;
+    --input-hovered-color: #1a6a271f;
+    position: relative;
+    
+    width: var(--width-of-input);
+}
+
+.form-group .input {
+    color: #484644;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+    border-bottom: var(--border-height) solid var(--border-before-color);
+}
+
+.form-group .input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+
+.form-group .form:hover .input {
+    background: var(--input-hovered-color);
+}
+
+.form-group .form .input:focus {
+    outline: none;
+}
+
+.form-group .form .input:focus ~ .input-border {
+    width: 100%;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #fcfcfc;
+    border-radius: 5px;
+}
+
+.form-group .custom-button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #171717;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 0.6rem;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group .custom-button span:not(:nth-child(6)) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 30px;
+    width: 30px;
+    background-color: #759276;
+    border-radius: 50%;
+    transition: 0.6s ease;
+}
+
+.form-group .custom-button span:nth-child(6) {
+    position: relative;
+}
+
+.form-group .custom-button span:nth-child(1) {
+    transform: translate(-3.3em, -4em);
+}
+
+.form-group .custom-button span:nth-child(2) {
+    transform: translate(-6em, 1.3em);
+}
+
+.form-group .custom-button span:nth-child(3) {
+    transform: translate(-0.2em, 1.8em);
+}
+
+.form-group .custom-button span:nth-child(4) {
+    transform: translate(3.5em, 1.4em);
+}
+
+.form-group .custom-button span:nth-child(5) {
+    transform: translate(3.5em, -3.8em);
+}
+
+.form-group .custom-button:hover span:not(:nth-child(6)) {
+    transform: translate(-50%, -50%) scale(4);
+    transition: 1.5s ease;
+}
+
+
+a:hover {
+    color: rgb(118, 117, 117);
+  }
+
+a{text-align: center;
+
+  }
+
+
+  .logo-container, p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20vh;
+    z-index: 1000; /* Assure que le logo reste au-dessus du contenu */
+}
+
+.logo-container img, p {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto; /* Centre l'image horizontalement */
+}
+
+p {
+    margin-top: 50px; 
+    margin-right: 15px;
+    font-weight: bold;
+    
+}
+.liens {
+    text-align: center; /* Centre le contenu horizontalement */
+    display: flex;
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center; /* Centre le contenu verticalement */
+    /* ... Autres styles pour .form-group ... */
+}
+
+/* Centrage du bouton et du premier lien pour l'inscription */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
