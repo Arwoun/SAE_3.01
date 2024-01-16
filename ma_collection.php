@@ -12,97 +12,113 @@ include_once("fonction.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Collection</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* This ensures the body takes at least the full height of the viewport */
+}
 
-        header {
-            background-color: #FFFF;
-            text-align: left;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+header {
+    background-color: #333;
+    text-align: left;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
 
-        header img {
-            max-width: 200px;
-        }
+header img {
+    max-width: 150px;
+}
 
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 121px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 121px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        h1 {
-            color: #333;
-        }
+h1 {
+    color: #333;
+}
 
-        .header-buttons {
-            text-align: right;
-        }
+.header-buttons {
+    text-align: right;
+}
 
-        .header-buttons a {
-            display: inline-block;
-            margin-left: 10px;
-            padding: 10px 20px;
-            background-color: #88c34a;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+.header-buttons a {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #88c34a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
 
-        .header-buttons a:hover {
-            background-color: #66a230;
-        }
+.header-buttons a:hover {
+    background-color: #66a230;
+}
 
-        .results {
-            margin: 20px;
-        }
+.results {
+    margin: 20px;
+}
 
-        .result-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
+.result-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
 
-        .result {
-            width: 300px;
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
+.result {
+    width: 300px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
 
-        .bookmark {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
+.bookmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
 
-        .bookmark img {
-            width: 24px;
-            height: 24px;
-        }
+.bookmark img {
+    width: 24px;
+    height: 24px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-top: auto;
+    width: 100%;
+}
+        
+
     </style>
 </head>
 <body>
 <header>
-    <img src="Logo/ANPF.png" alt="ANPF">
-    <div class="header-buttons">
-        <a href="page_accueil.php">Accueil</a>
+<img src="Dossier/Dossier/Logo/logo-transparent-png3.png" alt="Logo Biopedia">
+<div class="header-buttons">
+    <a href="page_accueil.php">Accueil</a>
         <a href="espece.php">Espèces</a>
+        <a href="ma_collection.php">Ma Collection</a>
         <?php
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -111,14 +127,17 @@ include_once("fonction.php");
             echo '<a href="infos_persos.php">Mes Infos Persos</a>';
             echo '<a href="deco.php">Déconnexion</a>';
         } else {
-            echo '<a href="connexion.php">Connexion</a>';
             echo '<a href="inscription.php">Inscription</a>';
+            echo ' <a href="connexion.php">Connexion</a>';
         }
         ?>
     </div>
 </header>
 
-<h1>Ma Collection</h1><br><br><br>
+
+<h1>Ma Naturothèque</h1>
+<h3>Retrouvez vos espèces favorites</h3>
+<br><br>
 
 <div class="results">
     <?php
@@ -173,4 +192,15 @@ include_once("fonction.php");
     ?>
 </div>
 </body>
+</br>
+</br>
+</br>
+<footer>
+ </br>
+    <p>&copy; 2024 Naturothèque. All rights reserved.
+        </br>
+    </br> Site réalisé dans le cadre d'un projet universitaire par : 
+    </br> Ouissal Jarrari, Axelle Peenaert, Arwin Nirmaladas, Axel Alves
+        </p>
+    </footer>
 </html>
