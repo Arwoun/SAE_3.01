@@ -13,50 +13,21 @@
             padding: 0;
         }
 
-        header {
-            background-color: #525252;
-            text-align: left;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header img {
-            max-width: 200px;
-        }
 
         .container {
             max-width: 625px;
-            margin: 101px auto;
             background-color:  #C8C8C8;
             padding: 41px;
             padding-top: 20px;
             border-radius: 31px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 180px auto;
         }
 
         h1 {
             color: #525252;
         }
 
-        .header-buttons {
-            text-align: right;
-        }
-
-        .header-buttons a {
-            display: inline-block;
-            margin-left: 10px;
-            padding: 10px 20px;
-            background-color: #3CB371;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .header-buttons a:hover {
-            background-color: #8FBC8F;
-        }
 
         .section {
             display: none;
@@ -80,7 +51,7 @@
         }
 
         input[type="submit"] {
-            background-color: #3CB371;
+            background-color: #525252;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -102,19 +73,31 @@
         #loading img {
             max-width: 100px;
         }
+
+        .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20vh;
+    z-index: 1000; /* Assure que le logo reste au-dessus du contenu */
+}
+
+.logo-container img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto; /* Centre l'image horizontalement */
+}
+
 </style>
 </head>
 <body>
-<header>
-    <img src="Dossier/Dossier/Logo/logo-transparent-png3.png" alt="Biopedia">
-    <div class="header-buttons">
-        <a href="page_accueil.php">Accueil</a>
-        <a href="#">Espèces</a>
-        <a href="#">Ma Collection</a>
-        <a href="inscription.php">Inscription</a>
-        <a href="connexion.php">Connexion</a>
+    <div class="logo-container">
+        <img src="Dossier/Dossier/Logo/logo-transparent-png3.png" alt="Logo de votre site">
     </div>
-</header>
 <div class="container">
         <div class="section active-section" id="code-reset">
             <h1>Code de réinitialisation</h1>
