@@ -10,6 +10,9 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* This ensures the body takes at least the full height of the viewport */
         }
 
         header {
@@ -72,25 +75,25 @@
         }
 
         #left img,
-#right img {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    transition: transform 0.3s;
-    cursor: pointer;
-    position: relative; /* Add position relative */
-    z-index: 0; /* Set a base z-index value */
-}
+        #right img {
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative; /* Add position relative */
+            z-index: 0; /* Set a base z-index value */
+        }
 
-#left img:hover,
-#right img:hover {
-    transform: scale(1.1);
-    z-index: 1; /* Increase z-index on hover to ensure it appears above other elements */
-}
+        #left img:hover,
+        #right img:hover {
+            transform: scale(1.1);
+            z-index: 1; /* Increase z-index on hover to ensure it appears above other elements */
+        }
 
 
         #left a,
@@ -102,19 +105,15 @@
         }
 
         footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            z-index: 1;
-            margin-top: 20px; /* Adjust as needed */
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        margin-top: auto;
+        width: 100%;
         }
-
         footer p {
-            margin: 0;
+            margin: 10px;
         }
-
     </style>
 </head>
 <body>
@@ -128,27 +127,27 @@
             <a href="connexion.php">Connexion</a>
         </div>
     </header>
-
+    <br>
     <div id="container">
         <div id="left">
-            <a href="Naturothèque.php.php">
-                <img src="1.png" alt="Image Gauche">
+            <a href="ma_collection.php">
+                <img src="Dossier/Logo/1.png" alt="Image Gauche">
             </a>
         </div>
         <div id="right">
-            <a href="Naturothèque.php.php">
-                <img src="12.png" alt="Image Droite">
+            <a href="les_collections.php">
+                <img src="Dossier/Logo/12.png" alt="Image Droite">
             </a>
         </div>
-    </div>
-    
+    </div>  
 </body>
+<br>
  <footer>
  </br>
-        <p>&copy; 2024 Naturothèque. All rights reserved.
-        </br>
+    <p>&copy; 2024 Naturothèque. All rights reserved.
+    </br>
     </br> Site réalisé dans le cadre d'un projet universitaire par : 
     </br> Ouissal Jarrari, Axelle Peenaert, Arwin Nirmaladas, Axel Alves
-        </p>
+    </p>
     </footer>
 </html>
