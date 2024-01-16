@@ -8,13 +8,13 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #5e655c;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color: #FFFF;
+            background-color: #525252;
             text-align: left;
             padding: 20px;
             display: flex;
@@ -27,16 +27,17 @@
         }
 
         .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 121px;
-            border-radius: 5px;
+            max-width: 625px;
+            margin: 101px auto;
+            background-color:  #C8C8C8;
+            padding: 41px;
+            padding-top: 20px;
+            border-radius: 31px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #333;
+            color: #525252;
         }
 
         .header-buttons {
@@ -47,14 +48,14 @@
             display: inline-block;
             margin-left: 10px;
             padding: 10px 20px;
-            background-color: #88c34a;
+            background-color: #3CB371;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
         }
 
         .header-buttons a:hover {
-            background-color: #66a230;
+            background-color: #8FBC8F;
         }
 
         .section {
@@ -71,17 +72,24 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
             border-radius: 3px;
+            box-sizing: border-box;
+            border: 3px solid #A9A9A9;
+            background-color: #C0C0C0; /* Fond des champs de saisie */
+            color: #fff; /* Texte en blanc */
         }
 
         input[type="submit"] {
-            background-color: #88c34a;
+            background-color: #3CB371;
             color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 3px;
             cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+        background-color: #8FBC8F; /* Effet hover pour le bouton soumettre */
         }
 
 
@@ -98,7 +106,7 @@
 </head>
 <body>
 <header>
-    <img src="Logo/ANPF.png" alt="ANPF">
+    <img src="Dossier/Dossier/Logo/logo-transparent-png3.png" alt="Biopedia">
     <div class="header-buttons">
         <a href="page_accueil.php">Accueil</a>
         <a href="#">Espèces</a>
