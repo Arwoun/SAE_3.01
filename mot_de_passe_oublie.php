@@ -13,27 +13,17 @@
         color: #E5E5E5; /* Texte plus clair pour contraster avec le fond */
     }
 
-    header {
-        background-color: #525252; /* Adaptation pour correspondre à l'en-tête de l'image */
-        text-align: left;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    header img {
-        max-width: 200px;
-    }
+  
 
     .container {
         max-width: 700px;
-        max-height: 500px;
-        margin: 20px auto;
+        max-height: 800px;
+        margin: 130px auto;
         background-color: #C8C8C8; /* Couleur du conteneur modifiée */
         padding: 20px; /* Ajusté pour l'espacement */
-        border-radius: 5px;
+        border-radius: 31px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée */
+       
     }
 
     h1 {
@@ -48,7 +38,7 @@
         display: inline-block;
         margin-left: 10px;
         padding: 10px 20px;
-        background-color: #2E8B57; /* Couleur adaptée aux boutons de l'image */
+        background-color: #88c34a; /* Couleur adaptée aux boutons de l'image */
         color: #fff;
         text-decoration: none;
         border-radius: 5px;
@@ -70,7 +60,7 @@
     }
 
     input[type="submit"] {
-        background-color: #2E8B57; /* Couleur du bouton soumettre */
+        background-color: #525252; /* Couleur du bouton soumettre */
         border: none;
         cursor: pointer;
     }
@@ -91,20 +81,48 @@
     .texte {
         color: #525252;
     }
+
+    .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20vh;
+    z-index: 1000; /* Assure que le logo reste au-dessus du contenu */
+}
+
+.logo-container img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto; /* Centre l'image horizontalement */
+}
+
+footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            margin-top: 20px; /* Adjust as needed */
+        }
+
+        footer p {
+            margin: 0;
+        }
 </style>
 
 </head>
 <body>
-<header>
-    <img src="Dossier\Dossier\Logo\logo-transparent-png3.png" alt="Biopédia" style="height: 50px; width: auto;">
-        <div class="header-buttons">
-            <a href="page_accueil.php">Accueil</a>
-            <a href="#">Espèces</a>
-            <a href="#">Ma Collection</a>
-            <a href="inscription.php">Inscription</a>
-            <a href="connexion.php">Connexion</a>
-        </div>
-</header>
+
+  
+<div class="logo-container">
+        <img src="Dossier/Dossier/Logo/logo-transparent-png3.png" alt="Logo de votre site">
+    </div>
+
 <br><br><br><br><br><br>
     <div class="container">
         <div class="section active-section" id="mot-de-passe-oublie">
@@ -116,11 +134,16 @@
                 <input type="email" id="email" name="email" required>
 
                 <input type="submit" value="Réinitialiser le mot de passe">
+                <input type="submit" value="Retour">
+                
+                
+
             </form>
         </div>
     </div>
 
 <?php
+
             use PHPMailer\PHPMailer\PHPMailer;
             use PHPMailer\PHPMailer\Exception;
             $servername = "localhost";
