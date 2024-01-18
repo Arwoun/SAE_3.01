@@ -10,17 +10,9 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         h1 {
@@ -36,22 +28,65 @@
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #88c34a;
+            background-color: #525252;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
+
         }
 
         a:hover {
-            background-color: #66a230;
+            background-color: #3A5D2F;
         }
+
+        .container {
+            max-width: 700px;
+            max-height: 800px;
+            margin: 130px auto;
+            background-color: #C8C8C8; /* Couleur du conteneur modifiée */
+            padding: 20px; /* Ajusté pour l'espacement */
+            border-radius: 31px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée */
+        
+        }
+
+        .center-button {
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto;
+            background-color: #f8f8f8;
+            color: grey;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 10px;
+        }
+
+        
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Opération réussie</h1>
         <p>Votre opération a été effectuée avec succès.</p>
-        <a href="espece.php">Retour à la page principale</a>
+        <div class="center-button">
+            <a href="espece.php">Retour à la page principale</a>
     </div>
+        </div>
 </body>
+
+<footer>
+ </br>
+    <p>&copy; 2024 Naturothèque. All rights reserved.
+    </br>
+    </br> Site réalisé dans le cadre d'un projet universitaire par : 
+    </br> Ouissal Jarrari, Axelle Peenaert, Arwin Nirmaladas, Axel Alves
+    </p>
+    </footer>
+
 </html>
