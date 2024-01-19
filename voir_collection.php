@@ -16,6 +16,18 @@ if (isset($_GET['utilisateur'])) {
     $stmt->bindParam(':utilisateur_id', $utilisateur_id, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+$query2 = 'SELECT utilisateur.nom, utilisateur.prenom, enregistrements.animal_id, enregistrements.date_enregistrement
+    FROM utilisateur
+    INNER JOIN enregistrements ON utilisateur.user_id = enregistrements.user_id
+    WHERE enregistrements.user_id = :utilisateur_id';
+
+$stmt2 = $bdd->prepare($query2);
+$stmt2->bindParam(':utilisateur_id', $utilisateur_id, PDO::PARAM_INT);
+$stmt2->execute();
+$result = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    
 }
 ?>
 
@@ -54,11 +66,258 @@ if (isset($_GET['utilisateur'])) {
             width: 24px;
             height: 24px;
         }
+        body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+}
+
+img {
+    width: 200px; /* Définit une largeur spécifique */
+    height: auto; /* Maintient le rapport hauteur-largeur original */
+}
+
+
+
+nav {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    margin: 0 20px;
+    margin-left: 20px;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    border-radius: 4px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+/* Effet de sous-ligne animée */
+nav a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #3d405b;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+nav a:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+nav a:hover {
+    color: #3d405b;
+    background-color: transparent;
+}
+
+nav a.active {
+    color: #3d405b;
+    font-weight: bold;
+}
+
+/* Style optionnel : Effet d'ombre légère */
+nav a:hover, nav a.active {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.search-bar form {
+    display: flex;
+    width: 100%;
+    max-width: 600px; /* Ajustez en fonction de la largeur désirée */
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    font-size: 17px;
+    border: 2px solid #ddd;
+    border-radius: 25px 0 0 25px; /* Coins arrondis à gauche */
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-bar input[type="text"]:focus {
+    border-color: #3d405b; /* Changement de couleur lors de la sélection */
+}
+
+.search-bar button {
+    border-radius: 0 25px 25px 0; /* Coins arrondis à droite */
+    padding: 10px 15px;
+    /* Styles du bouton déjà définis dans le CSS précédent */
+}
+
+/* Optionnel: Ajouter une ombre portée sur le focus */
+.search-bar input[type="text"]:focus {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.filters-column {
+    width: 200px;
+    float: left;
+    padding: 20px;
+}
+
+.results-container {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+footer {
+    background-color: #f8f8f8;
+    color: grey;
+    text-align: center;
+    margin-top: auto;
+    width: 100%;
+
+}
+
+button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #3d405b;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 17px;
+    padding: 16px;
+    width: 130px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -15px;
+    transition: 0.5s;
+}
+
+button:hover span {
+    padding-right: 15px;
+}
+
+button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+.results-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.animal-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.animal-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.animal-card h3 {
+    margin: 0;
+    color: #333333;
+    font-size: 1.2em;
+}
+
+.animal-card p {
+    margin: 10px 0 0;
+    color: #666666;
+    font-size: 1em;
+}
+
+.about-button {
+    background-color: #165580;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.about-button:hover {
+    background-color: #165580;
+}
     </style>
 </head>
+<header>
+    
+        <img src="Dossier/Dossier/biopedia_black.png" alt="Logo Biopedia">
+        <nav>
+        <div class="button">
+            <a href="page_accueil.php">Accueil</a>
+            <a href="#">Recherche</a>
+            <a href="naturoteque2.php">Naturothèque</a>
+            <a href="page_inscription.php">Inscription</a>
+            <a href="page_connexion.php">Connexion</a>
+        </div>
+        </nav>
+    </header>
 <body>
-<h1>Collection de l'Utilisateur</h1>
+<h1>Naturothèque de l'Utilisateur : <?php echo $result[0]['nom'] . ' ' . $result[0]['prenom']; ?></h1>
 
+<div class="animal-card">
 <?php
 if (isset($result) && count($result) > 0) {
     $count = 0;
@@ -102,5 +361,14 @@ if (isset($result) && count($result) > 0) {
     echo '<p>Utilisateur non trouvé ou aucune collection enregistrée.</p>';
 }
 ?>
+</div>
 </body>
+<footer>
+ </br>
+    <p>&copy; 2024 Biopedia. All rights reserved.
+    </br>
+    </br> Site réalisé dans le cadre d'un projet universitaire par : 
+    </br> Ouissal Jarrari, Axelle Peenaert, Arwin Nirmaladas, Axel Alves
+    </p>
+    </footer>
 </html>

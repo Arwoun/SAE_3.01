@@ -7,7 +7,8 @@
 <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            color: #333;
+            background-color: white;
             margin: 0;
             padding: 0;
             display: flex;
@@ -57,10 +58,10 @@
         footer {
             text-align: center;
             margin-top: auto;
-            background-color: #f8f8f8;
             color: grey;
             border-radius: 5px;
             width: 100%;
+            background-color: #f8f8f8;
         }
 
         footer p {
